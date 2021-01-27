@@ -93,20 +93,38 @@ function Airplane(name) {
   */
   
  function Car(model, milesPerGallon){
-    this.model = model,
-    this.milesPerGallon = milesPerGallon,
-    this.tank = 0,
-    this.odometer = 0
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
  }
 
   Car.prototype.fill = function(gallons){
     this.tank = this.tank + gallons;
   }
   
+  // Car.prototype.toString = function(){
+  //   return `The ${this.model} can get up to ${this.milesPerGallon} mpg`
+  // }
+
   Car.prototype.drive = function(distance){
-    this.odometer = this.odometer + distance;
-    this.tank = this.tank - (distance/milesPerGallon)
+    this.odometer = this.odometer + distance
+    this.tank = this.tank - (distance/this.milesPerGallon)
   }
+
+  const car1 = new Car('Ford', 23.4); // create cars for testing
+  const car2 = new Car('Chevy', 24.1);
+  const car3 = new Car('Toyota', 68.8);
+
+  // console.log(car1.toString());
+  // console.log(car2.toString());
+  // console.log(car3.toString());
+
+  car1.fill(30); // test fill function
+  console.log(car1);
+
+  car1.drive(20); // test drive function
+  console.log(car1);
 
   /*
     TASK 3
@@ -115,7 +133,7 @@ function Airplane(name) {
       - Besides the methods on Person.prototype, babies have the ability to `.play()`:
           + Should return a string "Playing with x", x being the favorite toy.
   */
- function Baby() {
+ function Baby(){
    
   }
  
