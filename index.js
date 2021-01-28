@@ -156,10 +156,10 @@ Baby.prototype.play = function(){
   /* 
     TASK 4
     In your own words explain the four principles for the "this" keyword below:
-    1. 
-    2. 
-    3. 
-    4. 
+    1. if "this" is used in the global score, this points to the window
+    2. if "this" is used when a function is called, "this" points to the object before the dot
+    3. when "this" is used in a constructor function, this refers to the object that is creator by the constructor
+    4. when "this" is used with a call or apply method, we explicitly define what "this" is
   */
   
   
