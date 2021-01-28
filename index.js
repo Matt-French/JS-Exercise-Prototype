@@ -7,6 +7,8 @@
         + If a plane lands, its `isFlying` property is set to false.
 */
 
+//setting up webhook//
+
 // EXAMPLE SOLUTION CODE:
 function Airplane(name) {
     this.name = name;
@@ -39,15 +41,42 @@ function Airplane(name) {
           + It should return a string with `name` and `age`. Example: "Mary, 50"
   */
   
- function Person() {
-    
+ function Person(name, age){
+    this.name = name;
+    this.age = age;
+    this.stomach = [];
   }
  
+  Person.prototype.eat = function(edible){
+    if(this.stomach.length < 10){
+      this.stomach.push(edible);
+    }
+  }
  
+  Person.prototype.poop = function(){
+    this.stomach = [];
+  }
 
+  Person.prototype.toString = function(){
+    return `${this.name}, ${this.age}`;
+  }
   
-  
-  
+  const studentOne = new Person('Luiza',23);
+  const studentTwo = new Person('Devon', 29);
+  const studentThree = new Person('Matthew', 443);
+
+  console.log(studentOne.toString());
+  console.log(studentTwo.toString());
+  console.log(studentThree.toString());
+
+  studentThree.eat('KoreanBBQ');
+  studentThree.eat('Potato');
+  studentThree.eat('Kiwi');
+
+  console.log(studentThree.stomach);
+
+  studentThree.poop();
+  console.log(studentThree.stomach);
   
   /*
     TASK 2
@@ -63,11 +92,49 @@ function Airplane(name) {
           + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
   */
   
- function Car() {
-    
+ function Car(model, milesPerGallon){
+    this.model = model;
+    this.milesPerGallon = milesPerGallon;
+    this.tank = 0;
+    this.odometer = 0;
+ }
+
+  Car.prototype.fill = function(gallons){
+    this.tank = this.tank + gallons;
   }
   
+  // Car.prototype.toString = function(){
+  //   return `The ${this.model} can get up to ${this.milesPerGallon} mpg`
+  // }
+
+  Car.prototype.drive = function(distance){
+      let driveableMiles = this.tank * this.milesPerGallon;
+      if(distance > driveableMiles){
+        this.odometer = this.odometer + driveableMiles;
+        this.tank = 0;
+        console.log(`I ran out of fuel at ${this.odometer} miles!`)
+      }else{
+        this.odometer = this.odometer + distance;
+        this.tank = this.tank - (distance/this.milesPerGallon);
+      }
+    }
   
+
+  const car1 = new Car('Ford', 23.4); // create cars for testing
+  const car2 = new Car('Chevy', 24.1);
+  const car3 = new Car('Toyota', 68.8);
+
+  // console.log(car1.toString());
+  // console.log(car2.toString());
+  // console.log(car3.toString());
+
+  car1.fill(30); // test fill function
+  console.log(car1);
+
+  car1.drive(760); // test drive function
+  console.log(car1);
+
+
   /*
     TASK 3
       - Write a Baby constructor subclassing Person.
@@ -75,18 +142,24 @@ function Airplane(name) {
       - Besides the methods on Person.prototype, babies have the ability to `.play()`:
           + Should return a string "Playing with x", x being the favorite toy.
   */
- function Baby() {
-   
-  }
- 
-  
+ function Baby(name, age, favoriteToy){
+  Person.call(this, name, age); // telling the child to inherit all the key:value pairs
+  this.favoriteToy = favoriteToy;
+}
+
+Baby.prototype = Object.create(Person.prototype); // inherit the parent's methods
+Baby.prototype.play = function(){
+  return `Playing with ${this.favoriteToy}` //new function exclusive to Child
+}
+
+
   /* 
     TASK 4
     In your own words explain the four principles for the "this" keyword below:
-    1. 
-    2. 
-    3. 
-    4. 
+    1. if "this" is used in the global score, this points to the window
+    2. if "this" is used when a function is called, "this" points to the object before the dot
+    3. when "this" is used in a constructor function, this refers to the object that is creator by the constructor
+    4. when "this" is used with a call or apply method, we explicitly define what "this" is
   */
   
   
